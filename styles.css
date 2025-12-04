@@ -69,6 +69,21 @@ body {
     animation-delay: 0.5s;
 }
 
+/* Khi hết quà: cho overlay phủ full màn hình */
+.banner-overlay--full {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: none;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    opacity: 1;
+    filter: none;
+    animation: none;
+    z-index: 5;
+}
+
 /* Clarify animation - from blur to clear */
 @keyframes clarify {
     0% {
@@ -122,4 +137,81 @@ body {
     100% {
         transform: translateY(100vh) translateX(-10px) rotate(360deg);
     }
+}
+
+/* Sold-out overlay (hết quà) */
+#sold-out-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: none; /* Ẩn mặc định */
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+#sold-out-overlay.visible {
+    display: flex; /* Hiện overlay toàn màn hình */
+}
+
+.sold-out-image {
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Loading state when checking gifts */
+body.loading-gifts::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 9000;
+}
+
+body.loading-gifts::after {
+    content: 'Đang kiểm tra quà...';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 1.1rem;
+    font-family: 'DFVN Modak', system-ui, sans-serif;
+    text-align: center;
+    padding: 10px 16px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 8px;
+    z-index: 9100;
+}
+
+/* Khi loading thì ẩn toàn bộ nội dung phía sau */
+body.loading-gifts .banner-wrapper,
+body.loading-gifts #snow-container {
+    display: none;
+}
+
+/* Thanh trạng thái ở cuối màn hình */
+#gift-status {
+    position: fixed;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 6px 14px;
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    font-size: 0.95rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    border-radius: 999px;
+    z-index: 9500;
+    white-space: nowrap;
+    pointer-events: none; /* không chặn thao tác lên nền */
 }
